@@ -3,7 +3,7 @@ import requests
 from datetime import datetime
 
 # Your OpenWeather API Key
-API_KEY = "50e01748c24b9242904eb21fe9fa05f8"
+API_KEY = st.secrets["OPENWEATHER_API_KEY"]
 
 # Page Configuration
 st.set_page_config(
