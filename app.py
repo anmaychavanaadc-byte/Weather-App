@@ -23,9 +23,9 @@ if st.button("Search"):
     if not city:
         st.warning("Please enter a city name")
     else:
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
+        url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
 
-    response = requests.get(url)
+        response = requests.get(url)
 
     if response.status_code == 200:
 
