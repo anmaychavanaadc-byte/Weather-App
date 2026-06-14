@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-from datetime import datetime
+from datetime import datetime,timezone, timedelta
 
 # Your OpenWeather API Key
 API_KEY = st.secrets["OPENWEATHER_API_KEY"]
@@ -20,17 +20,23 @@ city = st.text_input("Enter City Name")
 
 # Search Button
 if st.button("Search"):
+
     if not city:
         st.warning("Please enter a city name")
+
     else:
         url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
 
         response = requests.get(url)
 
-    if response.status_code == 200:
+        if response.status_code == 200:
 
-        data = response.json()
+            data = response.json()
 
+            # all your weather code here
+
+        else:
+            st.error("❌ City not found or API key is invalid")
         # Extract data
         temperature = data['main']['temp']
         humidity = data['main']['humidity']
@@ -40,14 +46,17 @@ if st.button("Search"):
         country = data['sys']['country']
         feels_like = data['main']['feels_like']
 
+        timezone_offset = data['timezone']
+
         sunrise = datetime.fromtimestamp(
-            data['sys']['sunrise']
-        )
+        data['sys']['sunrise'],
+        tz=timezone.utc
+        ) + timedelta(seconds=timezone_offset)
 
         sunset = datetime.fromtimestamp(
-            data['sys']['sunset']
-        )
-
+        data['sys']['sunset'],
+        tz=timezone.utc
+        ) + timedelta(seconds=timezone_offset)
         # Success Message
         st.success("Weather Retrieved Successfully")
 
@@ -91,10 +100,8 @@ if st.button("Search"):
             )
 
         with col5:
-            st.metric(
-                "☁️ Weather",
-                description
-            )
+        st.write("☁️ Weather")
+        st.subheader(description)
 
         # Sunrise & Sunset
         st.subheader("🌅 Sun Information")
