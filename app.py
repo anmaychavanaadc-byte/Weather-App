@@ -21,7 +21,7 @@ city = st.text_input("Enter City Name")
 # Search Button
 if st.button("Search"):
     if not city:
-    st.warning("Please enter a city name")
+        st.warning("Please enter a city name")
     else:
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
 
