@@ -100,8 +100,8 @@ if st.button("Search"):
             )
 
         with col5:
-        st.write("☁️ Weather")
-        st.subheader(description)
+            st.write("☁️ Weather")
+            st.subheader(description)
 
         # Sunrise & Sunset
         st.subheader("🌅 Sun Information")
