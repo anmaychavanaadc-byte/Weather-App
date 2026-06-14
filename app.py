@@ -120,5 +120,5 @@ if st.button("Search"):
                 sunset.strftime("%H:%M")
             )
 
-    else:
-        st.error("❌ City not found or API key is invalid")
+            else:
+                st.error("❌ City not found or API key is invalid")
